@@ -48,7 +48,6 @@
     canvas.css('width', this.goban.width);
     canvas.css('height', this.goban.height);
 
-    // Graphics
     this.coordinatesToPosition = function(arr) {
       // Учитываем краевые позиции, чтобы камень нельзя было поставить дальше поля
       var x = Math.round((arr[0] - 23) / 44);
@@ -103,6 +102,7 @@
     }
 
     this.legalMove = function(position) {
+      console.log(this.field[position[0]][position[1]]);
       if (this.field[position[0]][position[1]] != undefined) {
         return false;
       } else {
@@ -115,14 +115,11 @@
     }
 
     this.canvas.click(function(e) {
-      console.log(e);
       var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
       if (self.legalMove(positions)) {
         self.takePosition(positions);
         self.graphics.drawCircle(positions);
         self.swapPlayer();
-        console.log(e);
-        console.log(self.field);
       } else {
         self.controller.flash("Неверный ход!");
       }
@@ -131,5 +128,5 @@
 
 
 $(document).ready(function() {
-  var game = new Game($('#canvas'), $('#goban'), 13);
+  var game = new Game($('#canvas'), $('#goban'), 19);
 });
