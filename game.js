@@ -1,4 +1,37 @@
-$(document).ready(function() {
+  var gobans = {
+    "goban19" : {
+      size: 19,
+      name: "goban19",
+      frameX: 23,
+      frameY: 26,
+      width: 859,
+      height: 861
+    },
+    "goban13" : {
+      size: 13,
+      name: "goban13",
+      frameX: 23,
+      frameY: 26,
+      width: 520,
+      height: 517
+    },
+    "goban9" : {
+      size: 9,
+      name: "goban9",
+      frameX: 23,
+      frameY: 26,
+      width: 353,
+      height: 353
+    },
+    "goban7" : {
+      size: 7,
+      name: "goban7",
+      frameX: 23,
+      frameY: 29,
+      width: 278,
+      height: 273
+    }
+  };
 
   function Controller(goban) {
     this.goban = goban;
@@ -7,41 +40,70 @@ $(document).ready(function() {
     }
   }
 
-  function Game(canvas, goban) {
+  function ViewGraphics(canvas, size, game) {
+    this.goban = gobans["goban" + size];
+    this.context = canvas[0].getContext('2d');
+    this.game = game;
+    canvas.css('background', 'url(images/goban' + size + '.png)');
+    canvas.css('width', this.goban.width);
+    canvas.css('height', this.goban.height);
+
+    // Graphics
+    this.coordinatesToPosition = function(arr) {
+      // Учитываем краевые позиции, чтобы камень нельзя было поставить дальше поля
+      var x = Math.round((arr[0] - 23) / 44);
+      if (x > size - 1) {
+        x = size - 1;
+      }
+      var y = Math.round((arr[1] - 26) / 44);
+      if (y > size - 1) {
+        y = size - 1;
+      }
+      return [x, y];
+    }
+
+    this.positionToCoordinates = function(arr) {
+      // рассчет вида
+      // ширина квадрата * смещение + ширина границы + сумма однопиксельных интервалов между квадратами
+      return [44 * arr[0] + 23 + arr[0], 44 * arr[1] + 26 + arr[1]];
+    }
+
+    this.drawCircle = function(positionArray) {
+      var context = this.context;
+      context.beginPath();
+      var coordArray = this.positionToCoordinates(positionArray);
+      context.arc(coordArray[0], coordArray[1], 20, 0, 2 * Math.PI, false);
+      context.fillStyle = this.game.activePlayer;
+      context.fill();
+      context.closePath();
+    }
+  }
+
+  function Game(canvas, goban, size) {
     var self = this;
     this.canvas = canvas;
     this.controller = new Controller(goban);
-    this.context = this.canvas[0].getContext('2d');
+    this.graphics = new ViewGraphics(canvas, size, this);
     this.started = false;
     this.activePlayer = "black";
-    this.field = [
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-      [null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],
-    ];
+    this.field = [];
+    this.size = size;
+
+    for(var j = 0; j < size; j++) {
+      this.field[j] = [];
+    }
+    for(var i = 0; i < size; i++) {
+      for(var j = 0; j < size; j++) {
+        this.field[i][j] = undefined;
+      }
+    }
 
     this.swapPlayer = function() {
-      this.activePlayer = (this.activePlayer == "white") ? "black" : "white"
+      this.activePlayer = (this.activePlayer == "white") ? "black" : "white";
     }
 
     this.legalMove = function(position) {
-      if (this.field[position[0]][position[1]] != null) {
+      if (this.field[position[0]][position[1]] != undefined) {
         return false;
       } else {
         return true;
@@ -52,42 +114,12 @@ $(document).ready(function() {
       this.field[positionArray[0]][positionArray[1]] = this.activePlayer;
     }
 
-    // Graphics
-    //
-    this.coordinatesToPosition = function(arr) {
-      // Учитываем краевые позиции, чтобы камень нельзя было поставить дальше поля
-      var x = Math.round((arr[0] - 23) / 44);
-      if (x > 18) {
-        x = 18;
-      }
-      var y = Math.round((arr[1] - 26) / 44);
-      if (y > 18) {
-        y = 18;
-      }
-      return [x, y];
-    }
-
-    this.positionToCoordinates = function(arr) {
-      return [44 * arr[0] + 23 + arr[0], 44 * arr[1] + 26 + arr[1]];
-    }
-
-    this.drawCircle = function(positionArray) {
-      var context = this.context;
-      context.beginPath();
-      var coordArray = this.positionToCoordinates(positionArray);
-      context.arc(coordArray[0], coordArray[1], 20, 0, 2 * Math.PI, false);
-      context.fillStyle = this.activePlayer;
-      context.fill();
-      context.closePath();
-    }
-    // end graphics
-
     this.canvas.click(function(e) {
       console.log(e);
-      var positions = self.coordinatesToPosition([e.offsetX, e.offsetY]);
+      var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
       if (self.legalMove(positions)) {
         self.takePosition(positions);
-        self.drawCircle(positions);
+        self.graphics.drawCircle(positions);
         self.swapPlayer();
         console.log(e);
         console.log(self.field);
@@ -97,6 +129,7 @@ $(document).ready(function() {
     });
   };
 
-  var game = new Game($('#canvas'), $('#goban'));
 
+$(document).ready(function() {
+  var game = new Game($('#canvas'), $('#goban'), 13);
 });
