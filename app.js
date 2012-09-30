@@ -11,7 +11,6 @@ app.get('/', function(req, res) {
 app.listen(8888);
 
 // Transport
-
 var io = require('socket.io').listen(8889);
 io.sockets.on('connection', function (socket) {
 

@@ -11,29 +11,29 @@
     "goban13" : {
       size: 13,
       name: "goban13",
-      frameX: 23,
-      frameY: 26,
+      frameX: 12,
+      frameY: 12,
       width: 520,
       height: 517,
-      cellsize: 44
+      cellsize: 40
     },
     "goban9" : {
       size: 9,
       name: "goban9",
-      frameX: 23,
-      frameY: 26,
+      frameX: 12,
+      frameY: 12,
       width: 353,
       height: 353,
-      cellsize: 44
+      cellsize: 40
     },
     "goban7" : {
       size: 7,
       name: "goban7",
-      frameX: 23,
-      frameY: 29,
+      frameX: 14,
+      frameY: 13,
       width: 278,
       height: 273,
-      cellsize: 44
+      cellsize: 40
     }
   };
 
