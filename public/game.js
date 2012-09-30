@@ -41,6 +41,7 @@
     var self = this;
     this.game = new Game(canvas, goban, size);
     this.graphics = new ViewGraphics(canvas, size, this.game);
+    this.sizeSwitcher = $(goban).find("#size-switcher");
     this.goban = goban;
     this.canvas = canvas;
     // Создаем socket.io коннектор, для связи с сервером
@@ -54,14 +55,11 @@
       $('#flash').text(message);
     }
 
-    this.gobanSizeChange = function(e) {
-      console.log(e);
-      game = new Game($('#canvas'), $('#goban'), size);
-    }
-
-    // TODO
-    // Refactor me as action
-    $(goban).find('#size-switcher').change(this.gobanSizeChange);
+    this.sizeSwitcher.change(function(e) {
+      var size = $(this).val();
+      self.game = new Game(self.canvas, self.goban, size);
+      self.graphics = new ViewGraphics(self.canvas, size, self.game);
+    });
 
     this.canvas.click(function(e) {
       var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
