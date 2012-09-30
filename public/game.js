@@ -37,17 +37,44 @@
     }
   };
 
-  function Controller(goban) {
-    $(goban).find('#size-switcher').change(this.gobanSizeChange);
-    //console.log($(goban).find('#size-switcher'));
+  function Controller(canvas, goban, size) {
+    var self = this;
+    this.game = new Game(canvas, goban, size);
+    this.graphics = new ViewGraphics(canvas, size, this.game);
     this.goban = goban;
+    this.canvas = canvas;
+    // Создаем socket.io коннектор, для связи с сервером
+    this.socket = io.connect('http://localhost:8889');
+
+    this.socket.on('game_step', function (data) {
+      console.log(data);
+    });
+
     this.flash = function(message) {
       $('#flash').text(message);
     }
+
     this.gobanSizeChange = function(e) {
       console.log(e);
       game = new Game($('#canvas'), $('#goban'), size);
     }
+
+    // TODO
+    // Refactor me as action
+    $(goban).find('#size-switcher').change(this.gobanSizeChange);
+
+    this.canvas.click(function(e) {
+      var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
+      if (self.game.legalMove(positions)) {
+        self.game.takePosition(positions);
+        self.socket.emit('game_step', {turn: self.game.activePlayer, positions: positions});
+        self.graphics.drawCircle(positions);
+        self.game.swapPlayer();
+      } else {
+        self.flash("Неверный ход!");
+      }
+    });
+
   }
 
   function ViewGraphics(canvas, size, game) {
@@ -95,8 +122,6 @@
   function Game(canvas, goban, size) {
     var self = this;
     this.canvas = canvas;
-    this.controller = new Controller(goban);
-    this.graphics = new ViewGraphics(canvas, size, this);
     this.started = false;
     this.activePlayer = "black";
     this.field = [];
@@ -129,18 +154,8 @@
       this.field[positionArray[0]][positionArray[1]] = this.activePlayer;
     }
 
-    this.canvas.click(function(e) {
-      var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
-      if (self.legalMove(positions)) {
-        self.takePosition(positions);
-        self.graphics.drawCircle(positions);
-        self.swapPlayer();
-      } else {
-        self.controller.flash("Неверный ход!");
-      }
-    });
   };
 
 $(document).ready(function() {
-  game = new Game($('#canvas'), $('#goban'), 19);
+  gameController = new Controller($('#canvas'), $('#goban'), 19);
 });

@@ -14,7 +14,9 @@ app.listen(8888);
 
 var io = require('socket.io').listen(8889);
 io.sockets.on('connection', function (socket) {
-  socket.on('step', function (data) {
-    console.log(data);
+
+  socket.on('game_step', function (data) {
+    console.log("Game step: " + data);
   });
+
 });
