@@ -1,15 +1,16 @@
-var server = require('./server');
-var router = require('./router');
+var express = require('express');
 var requestHandlers = require('./requestHandlers');
 
-var handle = {};
-handle['/'] = requestHandlers.index;
-handle['/index'] = requestHandlers.index;
-handle['/about'] = requestHandlers.about;
-handle['/game'] = requestHandlers.about;
+var app = express();
+app.use(express.static(__dirname + '/public'));
 
-server.start(router.route, handle);
+app.get('/', function(req, res) {
+  res.render('index.html');
+});
 
+app.listen(8888);
+
+// Transport
 
 var app = require('http').createServer(handler)
   , io = require('socket.io').listen(app)
