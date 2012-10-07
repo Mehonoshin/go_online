@@ -117,6 +117,12 @@
     }
   }
 
+  //function GoGame() {
+    //this.check = function() {
+      //console.log("Checked!!!");
+    //}
+  //};
+
   function Game(canvas, goban, size) {
     var self = this;
     this.canvas = canvas;
@@ -151,8 +157,8 @@
     this.takePosition = function(positionArray) {
       this.field[positionArray[0]][positionArray[1]] = this.activePlayer;
     }
-
   };
+  //Game.prototype = new GoGame();
 
 $(document).ready(function() {
   gameController = new Controller($('#canvas'), $('#goban'), 19);
