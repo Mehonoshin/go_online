@@ -1,7 +1,10 @@
-function GoGame() {
-  this.tellName = function() {
-    return "Common game";
-  }
-}
+(function(exports){
 
-exports.game = GoGame;
+  function GoGame() {
+    this.tellName = function() {
+      return "Common game";
+    }
+  }
+  exports.game = GoGame;
+
+})(typeof exports === 'undefined'? this['GoGame']={}: exports);

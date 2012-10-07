@@ -10,6 +10,7 @@ app.listen(8888);
 
 // Game bussines logic
 var engine = require('./goGame');
+
 function BackendGame() {
   this.sessions = [];
 }
