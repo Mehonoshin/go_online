@@ -48,7 +48,7 @@
     this.socket = io.connect('http://localhost:8889');
 
     this.socket.on('game_step', function (data) {
-      console.log(data);
+      console.log("debug" + data);
     });
 
     this.flash = function(message) {
