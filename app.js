@@ -2,13 +2,20 @@
 var engine = require('./public/goGame');
 
 function BackendGame() {
+  this.matches = [];
   this.sessions = [];
+
   this.addClient = function(newClient) {
     this.sessions.push(newClient);
   }
 
+  this.newMatch = function(initUserId) {
+    this.matches.push({initUserId: initUserId, opponentId: null});
+    return this.matches.length - 1;
+  }
+
   this.games = function() {
-    return [];
+    return this.matches;
   }
 }
 BackendGame.prototype = new engine.game();
@@ -24,8 +31,18 @@ app.set('views', __dirname + '/views');
 app.get('/', function(req, res) {
   res.render('index.ejs', {
     activePlayers: gameServer.sessions.length,
-    gamesList: gameServer.games
+    matchesList: gameServer.matches
   });
+});
+
+app.get('/new_game', function(req, res) {
+  var gameId = gameServer.newMatch(123);
+  // redirect to goban with game id
+  res.redirect('/game?id=' + gameId);
+});
+
+app.get('/join_game', function(req, res) {
+  // redirect
 });
 
 app.get('/game', function(req, res) {

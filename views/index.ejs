@@ -10,10 +10,17 @@
   </head>
 
   <body>
-    Players: <%= activePlayers %>
-    <a href="/game">
+    Игроков на сервере: <%= activePlayers %>
+    <a href="/new_game">
       <button>New Game</button>
     </a>
+    
+    <div>Список свободных игр</div>
+    <select multiple="multiple">
+      <% for(var i = 0; i < matchesList.length; i++) { %>
+        <option><%= matchesList[i] %></option>
+      <% } %>
+    </select>
   </body>
 </html>
 
