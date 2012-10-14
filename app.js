@@ -1,6 +1,6 @@
 // Game bussines logic
-var gameEngine = require('./backendGame');
-var gameServer = new gameEngine.BackendGame();
+var server = require('./gameServer');
+var gameServer = new server.GameServer();
 
 // Web frontend
 var express = require('express');

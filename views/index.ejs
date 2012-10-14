@@ -14,13 +14,14 @@
     <a href="/new_game">
       <button>New Game</button>
     </a>
-    
     <div>Список свободных игр</div>
     <select multiple="multiple">
       <% for(var i = 0; i < matchesList.length; i++) { %>
-        <option><%= matchesList[i] %></option>
+        <option value="<%= matchesList[i].id() %>"><%= matchesList[i].name() %></option>
       <% } %>
     </select>
+    <br />
+    <input type="submit" value="Отправить">
   </body>
 </html>
 

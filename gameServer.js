@@ -1,6 +1,6 @@
-var engine = require('./public/goGame');
+var Match = require('./match').Match;
 
-function BackendGame() {
+function GameServer() {
   this.matches = [];
   this.sessions = [];
 
@@ -9,7 +9,7 @@ function BackendGame() {
   }
 
   this.newMatch = function(initUserId) {
-    this.matches.push({initUserId: initUserId, opponentId: null});
+    this.matches.push(new Match(initUserId));
     return this.matches.length - 1;
   }
 
@@ -17,6 +17,5 @@ function BackendGame() {
     return this.matches;
   }
 }
-BackendGame.prototype = new engine.game();
 
-exports.BackendGame = BackendGame;
+exports.GameServer = GameServer;
