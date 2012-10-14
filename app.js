@@ -1,25 +1,6 @@
 // Game bussines logic
-var engine = require('./public/goGame');
-
-function BackendGame() {
-  this.matches = [];
-  this.sessions = [];
-
-  this.addClient = function(newClient) {
-    this.sessions.push(newClient);
-  }
-
-  this.newMatch = function(initUserId) {
-    this.matches.push({initUserId: initUserId, opponentId: null});
-    return this.matches.length - 1;
-  }
-
-  this.games = function() {
-    return this.matches;
-  }
-}
-BackendGame.prototype = new engine.game();
-var gameServer = new BackendGame();
+var gameEngine = require('./backendGame');
+var gameServer = new gameEngine.BackendGame();
 
 // Web frontend
 var express = require('express');
@@ -37,12 +18,11 @@ app.get('/', function(req, res) {
 
 app.get('/new_game', function(req, res) {
   var gameId = gameServer.newMatch(123);
-  // redirect to goban with game id
   res.redirect('/game?id=' + gameId);
 });
 
 app.get('/join_game', function(req, res) {
-  // redirect
+  res.redirect('game?id=');
 });
 
 app.get('/game', function(req, res) {
