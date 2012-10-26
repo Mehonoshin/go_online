@@ -35,16 +35,8 @@ app.listen(8888);
 var io = require('socket.io').listen(8889);
 io.sockets.on('connection', function (socket) {
 
-  //console.log("[" + gameServer.tellName() + "]New connection: " + JSON.stringify(socket));
-  //gameServer.addClient(socket);
-  //console.log("[" + gameServer.tellName() + "]Connections: " + gameServer.sessions);
-
   socket.on('game_step', function (data) {
     console.log("[" + gameServer.tellName() + "]Game step: " + data);
-    //socket.emit('game_step', data);
-    //for(session in io.sockets) {
-      //session.emit('game_step', data);
-    //}
   });
 
 });

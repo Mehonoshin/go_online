@@ -1,4 +1,5 @@
 var Match = require('./match').Match;
+var GoGame = require('./public/goGame');
 
 function GameServer() {
   this.matches = [];
@@ -17,5 +18,6 @@ function GameServer() {
     return this.matches;
   }
 }
+GameServer.prototype = new GoGame.game();
 
 exports.GameServer = GameServer;
