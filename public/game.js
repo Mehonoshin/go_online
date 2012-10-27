@@ -48,7 +48,11 @@
     this.socket = io.connect('http://localhost:8889');
 
     this.socket.on('game_step', function (data) {
-      console.log("debug" + data);
+      if (self.game.legalMove(data['positions'])) {
+        self.game.takePosition(data['positions']);
+        self.graphics.drawCircle(data['positions']);
+        self.game.swapPlayer();
+      }
     });
 
     this.flash = function(message) {

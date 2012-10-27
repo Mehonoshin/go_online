@@ -37,6 +37,7 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('game_step', function (data) {
     console.log("[" + gameServer.tellName() + "]Game step: " + data);
+    io.sockets.emit('game_step', {turn: data['turn'], positions: data['positions']})
   });
 
 });
