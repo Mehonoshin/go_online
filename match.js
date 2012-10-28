@@ -1,7 +1,8 @@
 var engine = require('./public/goGame');
 
-function Match(initUserId) {
+function Match(initUserId, gobanSize) {
   this.initUserId = initUserId;
+  this.gobanSize = gobanSize;
 
   this.id = function() {
     return this.initUserId;

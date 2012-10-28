@@ -11,9 +11,18 @@
 
   <body>
     Игроков на сервере: <%= activePlayers %>
-    <a href="/new_game">
-      <button>New Game</button>
-    </a>
+    <form method="get" action="/new_game">
+      <div id="size-switcher-container">
+        <select name="size" id="size-switcher">
+          <option value="19">19</option>
+          <option value="13">13</option>
+          <option value="9">9</option>
+          <option value="7">7</option>
+        </select>
+      </div>
+      <input type="submit">New Game</button>
+    </form>
+
     <div>Список свободных игр</div>
     <select multiple="multiple">
       <% for(var i = 0; i < matchesList.length; i++) { %>

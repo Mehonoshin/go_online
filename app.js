@@ -17,8 +17,9 @@ app.get('/', function(req, res) {
 });
 
 app.get('/new_game', function(req, res) {
-  var gameId = gameServer.newMatch(123);
-  res.redirect('/game?id=' + gameId);
+  var userId = 123, gobanSize = req.query.size;
+  var gameId = gameServer.newMatch(userId, gobanSize);
+  res.redirect('/game?userId=' + userId + '&gameId=' + gameId);
 });
 
 app.get('/join_game', function(req, res) {
@@ -26,7 +27,12 @@ app.get('/join_game', function(req, res) {
 });
 
 app.get('/game', function(req, res) {
-  res.render('goban.ejs');
+  var match = gameServer.getMatch(req.query.gameId);
+  res.render('goban.ejs', {
+    gameId: req.query.gameId,
+    gobanSize: match.gobanSize,
+    userId: req.query.userId
+  });
 });
 
 app.listen(8888);
@@ -36,7 +42,7 @@ var io = require('socket.io').listen(8889);
 io.sockets.on('connection', function (socket) {
 
   socket.on('game_step', function (data) {
-    console.log("[" + gameServer.tellName() + "]Game step: " + data);
+    console.log("[]Game step: " + data);
     io.sockets.emit('game_step', {turn: data['turn'], positions: data['positions']})
   });
 

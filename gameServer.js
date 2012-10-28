@@ -9,8 +9,12 @@ function GameServer() {
     this.sessions.push(newClient);
   }
 
-  this.newMatch = function(initUserId) {
-    this.matches.push(new Match(initUserId));
+  this.getMatch = function(id) {
+    return this.matches[id];
+  }
+
+  this.newMatch = function(initUserId, gobanSize) {
+    this.matches.push(new Match(initUserId, gobanSize));
     return this.matches.length - 1;
   }
 
@@ -18,6 +22,4 @@ function GameServer() {
     return this.matches;
   }
 }
-GameServer.prototype = new GoGame.game();
-
 exports.GameServer = GameServer;

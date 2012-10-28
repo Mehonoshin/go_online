@@ -159,5 +159,5 @@
   Game.prototype = new GoGame.game();
 
 $(document).ready(function() {
-  gameController = new Controller($('#canvas'), $('#goban'), 19);
+  gameController = new Controller($('#canvas'), $('#goban'), $('#goban').data('gobanSize'));
 });
