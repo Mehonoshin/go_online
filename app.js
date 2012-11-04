@@ -17,12 +17,18 @@ app.get('/', function(req, res) {
 });
 
 app.get('/new_game', function(req, res) {
+  // TODO
+  // генерим случайный id пользователя
+  // в куку его и секретный хеш по которому подписываем запросы юзера
   var userId = 123, gobanSize = req.query.size;
   var gameId = gameServer.newMatch(userId, gobanSize);
   res.redirect('/game?userId=' + userId + '&gameId=' + gameId);
 });
 
 app.get('/join_game', function(req, res) {
+  // TODO
+  // Реализовать механику джоина к игре
+  // либо в виде зрителя если уже есть 2 игрока
   res.redirect('game?id=');
 });
 
@@ -43,7 +49,13 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('game_step', function (data) {
     console.log("[]Game step: " + data);
-    io.sockets.emit('game_step', {turn: data['turn'], positions: data['positions']})
+    io.sockets.emit('game_step', {
+      turn: data['turn'], 
+      positions: data['positions']
+    })
+    // TODO
+    // дергаем у сервера метод гейм-степа
+    // берем матч и в нем проверяем валидность хода
   });
 
 });

@@ -69,7 +69,12 @@
       var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
       if (self.game.legalMove(positions)) {
         self.game.takePosition(positions);
-        self.socket.emit('game_step', {turn: self.game.activePlayer, positions: positions});
+        // TODO
+        // отправляем gameId и подпись игрока
+        self.socket.emit('game_step', {
+          turn: self.game.activePlayer, 
+          positions: positions
+        });
         self.graphics.drawCircle(positions);
         self.game.swapPlayer();
       } else {
