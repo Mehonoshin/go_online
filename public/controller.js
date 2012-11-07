@@ -18,6 +18,10 @@ function Controller(canvas, goban, size) {
     $('#flash').text(message);
   }
 
+  this.clearFlash = function() {
+    $('#flash').text("");
+  }
+
   this.canvas.click(function(e) {
     var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
     if (self.game.legalMove(positions)) {
@@ -30,6 +34,7 @@ function Controller(canvas, goban, size) {
       });
       self.graphics.redrawStones();
       self.game.swapPlayer();
+      self.clearFlash();
     } else {
       self.flash("Неверный ход!");
     }
