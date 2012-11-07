@@ -26,11 +26,11 @@ function Controller(canvas, goban, size) {
     var positions = self.graphics.coordinatesToPosition([e.offsetX, e.offsetY]);
     if (self.game.legalMove(positions)) {
       self.game.takePosition(positions);
-      // TODO
-      // отправляем gameId и подпись игрока
       self.socket.emit('game_step', {
-        turn: self.game.activePlayer, 
-        positions: positions
+        turn: self.game.activePlayer,
+        positions: positions,
+        userId: self.game.userId,
+        gameId: self.game.gameId
       });
       self.graphics.redrawStones();
       self.game.swapPlayer();

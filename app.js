@@ -24,12 +24,14 @@ app.get('/', function(req, res) {
   });
 });
 
+
 app.get('/new_game', function(req, res) {
   var cookies = new Cookies(req, res);
   var userId = cookies.get('player_id'), gobanSize = req.query.size;
   var gameId = gameServer.newMatch(userId, gobanSize);
   res.redirect('/game?userId=' + userId + '&gameId=' + gameId);
 });
+
 
 app.get('/join_game', function(req, res) {
   var cookies = new Cookies(req, res);
@@ -38,9 +40,12 @@ app.get('/join_game', function(req, res) {
   res.redirect('game?userId=' + userId + '&gameId=' + gameId);
 });
 
+
 app.get('/game', function(req, res) {
   var match = gameServer.getMatch(req.query.gameId);
-  var color = (match.first_player_id() == req.query.userId) ? "white" : "black";
+  var color = (match.firstPlayerId() == req.query.userId) ? "white" : "black";
+  match.joinMatch(req.query.userId);
+
   res.render('goban.ejs', {
     gameId: req.query.gameId,
     gobanSize: match.gobanSize,
@@ -56,14 +61,17 @@ var io = require('socket.io').listen(8889);
 io.sockets.on('connection', function (socket) {
 
   socket.on('game_step', function (data) {
-    console.log("[]Game step: " + data);
-    socket.broadcast.emit('game_step', {
-      turn: data['turn'],
-      positions: data['positions']
-    })
-    // TODO
-    // дергаем у сервера метод гейм-степа
-    // берем матч и в нем проверяем валидность хода
+    console.log("[debug] Game step: " + data);
+    var match = gameServer.getMatch(data['gameId']);
+    if (match.legalMove(data)) {
+      // match.gameStep(data)
+      socket.broadcast.emit('game_step', {
+        turn: data['turn'],
+        positions: data['positions'],
+        userId: data['userId'],
+        gameId: data['gameId']
+      });
+    }
   });
 
 });

@@ -2,6 +2,8 @@ function Game(canvas, goban, size) {
   var self = this;
   this.canvas = canvas;
   this.goban = goban;
+  this.userId = goban.data("userId");
+  this.gameId = goban.data("gameId");
   this.started = false;
   this.activePlayer = "white";
   this.field = [];
