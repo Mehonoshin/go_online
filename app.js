@@ -40,11 +40,7 @@ app.get('/join_game', function(req, res) {
 
 app.get('/game', function(req, res) {
   var match = gameServer.getMatch(req.query.gameId);
-  if (match.first_player_id() == req.query.userId) {
-    var color = "white";
-  } else {
-    var color = "black";
-  }
+  var color = (match.first_player_id() == req.query.userId) ? "white" : "black";
   res.render('goban.ejs', {
     gameId: req.query.gameId,
     gobanSize: match.gobanSize,
@@ -61,8 +57,8 @@ io.sockets.on('connection', function (socket) {
 
   socket.on('game_step', function (data) {
     console.log("[]Game step: " + data);
-    io.sockets.emit('game_step', {
-      turn: data['turn'], 
+    socket.broadcast.emit('game_step', {
+      turn: data['turn'],
       positions: data['positions']
     })
     // TODO

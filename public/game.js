@@ -48,11 +48,11 @@
     this.socket = io.connect('http://localhost:8889');
 
     this.socket.on('game_step', function (data) {
-      if (self.game.legalMove(data['positions'])) {
+      //if (self.game.legalMove(data['positions'])) {
         self.game.takePosition(data['positions']);
         self.graphics.drawCircle(data['positions']);
         self.game.swapPlayer();
-      }
+      //}
     });
 
     this.flash = function(message) {
@@ -129,10 +129,12 @@
   function Game(canvas, goban, size) {
     var self = this;
     this.canvas = canvas;
+    this.goban = goban;
     this.started = false;
-    this.activePlayer = "black";
+    this.activePlayer = "white";
     this.field = [];
     this.size = size;
+    this.waitingForOpponentMove = (goban.data('color') == "black") ? true : false;
 
     for(var j = 0; j < size; j++) {
       this.field[j] = [];
@@ -145,12 +147,13 @@
 
     this.swapPlayer = function() {
       this.activePlayer = (this.activePlayer == "white") ? "black" : "white";
+      this.waitingForOpponentMove = this.waitingForOpponentMove ? false : true;
     }
 
     this.legalMove = function(position) {
       console.log(this.field[position[0]][position[1]]);
       console.log("x=" + position[0] + " y=" + position[1]);
-      if (this.field[position[0]][position[1]] != undefined) {
+      if (this.waitingForOpponentMove || (this.field[position[0]][position[1]] != undefined)) {
         return false;
       } else {
         return true;
