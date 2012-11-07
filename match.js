@@ -19,7 +19,7 @@ function Match(id, initUserId, gobanSize) {
   }
 
   this.name = function() {
-    return this.initUserId;
+    return "[x" + this.gobanSize + "] " + this.initUserId + " VS " + this.secondUserId;
   }
 }
 

@@ -40,7 +40,7 @@ app.get('/join_game', function(req, res) {
 
 app.get('/game', function(req, res) {
   var match = gameServer.getMatch(req.query.gameId);
-  if (match.first_player_id == req.query.userId) {
+  if (match.first_player_id() == req.query.userId) {
     var color = "white";
   } else {
     var color = "black";
