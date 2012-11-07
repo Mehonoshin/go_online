@@ -6,38 +6,50 @@ var gameServer = new server.GameServer();
 var express = require('express');
 
 var app = express();
+var Cookies = require('cookies');
 app.use(express.static(__dirname + '/public'));
 app.set('views', __dirname + '/views');
 
 app.get('/', function(req, res) {
+  var cookies = new Cookies(req, res);
+  var player_id = cookies.get('player_id');
+  if (player_id == null) {
+    player_id = String(Math.round(new Date().getTime() / 1000));
+    cookies.set("player_id", player_id);
+  }
   res.render('index.ejs', {
     activePlayers: gameServer.sessions.length,
-    matchesList: gameServer.matches
+    matchesList: gameServer.matches,
+    player_id: player_id
   });
 });
 
 app.get('/new_game', function(req, res) {
-  // TODO
-  // генерим случайный id пользователя
-  // в куку его и секретный хеш по которому подписываем запросы юзера
-  var userId = 123, gobanSize = req.query.size;
+  var cookies = new Cookies(req, res);
+  var userId = cookies.get('player_id'), gobanSize = req.query.size;
   var gameId = gameServer.newMatch(userId, gobanSize);
   res.redirect('/game?userId=' + userId + '&gameId=' + gameId);
 });
 
 app.get('/join_game', function(req, res) {
-  // TODO
-  // Реализовать механику джоина к игре
-  // либо в виде зрителя если уже есть 2 игрока
-  res.redirect('game?id=');
+  var cookies = new Cookies(req, res);
+  var userId = cookies.get('player_id');
+  var gameId = req.query.game_id;
+  res.redirect('game?userId=' + userId + '&gameId=' + gameId);
 });
 
 app.get('/game', function(req, res) {
   var match = gameServer.getMatch(req.query.gameId);
+  if (match.first_player_id == req.query.userId) {
+    var color = "white";
+  } else {
+    var color = "black";
+  }
   res.render('goban.ejs', {
     gameId: req.query.gameId,
     gobanSize: match.gobanSize,
-    userId: req.query.userId
+    userId: req.query.userId,
+    color: color
   });
 });
 

@@ -14,7 +14,7 @@ function GameServer() {
   }
 
   this.newMatch = function(initUserId, gobanSize) {
-    this.matches.push(new Match(initUserId, gobanSize));
+    this.matches.push(new Match(this.matches.length, initUserId, gobanSize));
     return this.matches.length - 1;
   }
 

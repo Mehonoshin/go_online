@@ -24,13 +24,16 @@
     </form>
 
     <div>Список свободных игр</div>
-    <select multiple="multiple">
-      <% for(var i = 0; i < matchesList.length; i++) { %>
-        <option value="<%= matchesList[i].id() %>"><%= matchesList[i].name() %></option>
-      <% } %>
-    </select>
-    <br />
-    <input type="submit" value="Отправить">
+    <form method="get" action="/join_game">
+      <select name="game_id" multiple="multiple">
+        <% for(var i = 0; i < matchesList.length; i++) { %>
+          <option value="<%= matchesList[i].id() %>"><%= matchesList[i].name() %></option>
+        <% } %>
+      </select>
+      <br />
+      <input type="submit" value="Присоедениться">
+    </form>
+
   </body>
 </html>
 
