@@ -1,6 +1,7 @@
 function ViewGraphics(canvas, size, game) {
   this.goban = gobans["goban" + size];
   this.game = game;
+  this.canvas = canvas;
   canvas.css('background', 'url(images/goban' + size + '.png)');
   canvas.css('width', this.goban.width);
   canvas.css('height', this.goban.height);
@@ -27,6 +28,15 @@ function ViewGraphics(canvas, size, game) {
     return [this.goban.cellsize * arr[0] + this.goban.frameX + arr[0], this.goban.cellsize * arr[1] + this.goban.frameY + arr[1]];
   }
 
+  this.redrawStones = function() {
+    this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    for (var i = 0; i < this.game.size; i++) {
+      for (var j = 0; j < this.game.size; j++) {
+        this.drawCircle([i, j]);
+      }
+    }
+  }
+
   this.drawCircle = function(positionArray) {
     var context = this.context;
     console.log(context);
@@ -34,8 +44,10 @@ function ViewGraphics(canvas, size, game) {
     var coordArray = this.positionToCoordinates(positionArray);
     console.log(coordArray);
     context.arc(coordArray[0], coordArray[1], 20, 0, 2 * Math.PI, false);
-    context.fillStyle = this.game.activePlayer;
-    context.fill();
-    context.closePath();
+    if (this.game.field[positionArray[0]][positionArray[1]] != undefined) {
+      context.fillStyle = this.game.field[positionArray[0]][positionArray[1]];
+      context.fill();
+      context.closePath();
+    }
   }
 }
