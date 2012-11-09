@@ -1,0 +1,318 @@
+GIT
+  remote: git://github.com/Mehonoshin/capistrano-sync.git
+  revision: 78feec5514f260cecb52e2130e2343981ebc235a
+  specs:
+    capistrano-sync (0.1.0)
+
+GIT
+  remote: git://github.com/ctran/annotate_models.git
+  revision: 4a96f3a15902c58e6044f8229d81a7554149219a
+  specs:
+    annotate (2.6.0.beta1)
+      activerecord (>= 2.3.0)
+      rake (>= 0.8.7)
+
+GIT
+  remote: https://github.com/evrone/dev_must_have
+  revision: d00a6221a2b7ff6ba9a382d92f986ba755375386
+  specs:
+    dev_must_have (0.0.3)
+      capistrano_colors
+      dev_log_in
+      guard
+      guard-rspec
+      hirb
+      powder
+      wirble
+
+GEM
+  remote: https://rubygems.org/
+  specs:
+    actionmailer (3.2.8)
+      actionpack (= 3.2.8)
+      mail (~> 2.4.4)
+    actionpack (3.2.8)
+      activemodel (= 3.2.8)
+      activesupport (= 3.2.8)
+      builder (~> 3.0.0)
+      erubis (~> 2.7.0)
+      journey (~> 1.0.4)
+      rack (~> 1.4.0)
+      rack-cache (~> 1.2)
+      rack-test (~> 0.6.1)
+      sprockets (~> 2.1.3)
+    activemodel (3.2.8)
+      activesupport (= 3.2.8)
+      builder (~> 3.0.0)
+    activerecord (3.2.8)
+      activemodel (= 3.2.8)
+      activesupport (= 3.2.8)
+      arel (~> 3.0.2)
+      tzinfo (~> 0.3.29)
+    activeresource (3.2.8)
+      activemodel (= 3.2.8)
+      activesupport (= 3.2.8)
+    activesupport (3.2.8)
+      i18n (~> 0.6)
+      multi_json (~> 1.0)
+    addressable (2.3.2)
+    arel (3.0.2)
+    bcrypt-ruby (3.0.1)
+    builder (3.0.4)
+    capistrano (2.13.5)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
+    capistrano-ext (1.2.1)
+      capistrano (>= 1.0.0)
+    capistrano_colors (0.5.5)
+    capybara (1.1.3)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      selenium-webdriver (~> 2.0)
+      xpath (~> 0.1.4)
+    childprocess (0.3.6)
+      ffi (~> 1.0, >= 1.0.6)
+    coderay (1.0.8)
+    coffee-rails (3.2.2)
+      coffee-script (>= 2.2.0)
+      railties (~> 3.2.0)
+    coffee-script (2.2.0)
+      coffee-script-source
+      execjs
+    coffee-script-source (1.4.0)
+    daemons (1.1.9)
+    database_cleaner (0.9.1)
+    dev_log_in (0.0.4)
+      rails (>= 3.0.0)
+    devise (1.5.3)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.0.3)
+      warden (~> 1.1)
+    devise-russian (2.0.1.1)
+      devise
+    diff-lcs (1.1.3)
+    erubis (2.7.0)
+    eventmachine (1.0.0)
+    execjs (1.4.0)
+      multi_json (~> 1.0)
+    factory_girl (4.1.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.1.0)
+      factory_girl (~> 4.1.0)
+      railties (>= 3.0.0)
+    fakeweb (1.3.0)
+    ffi (1.1.5)
+    growl_notify (0.0.3)
+      rb-appscript
+    guard (1.5.3)
+      listen (>= 0.4.2)
+      lumberjack (>= 1.0.2)
+      pry (>= 0.9.10)
+      thor (>= 0.14.6)
+    guard-annotate (1.0.0)
+      annotate (>= 2.4.0)
+      guard (>= 0.2.2)
+    guard-resque (0.0.5)
+      guard (>= 0.8)
+      resque
+    guard-rspec (2.1.1)
+      guard (>= 1.1)
+      rspec (~> 2.11)
+    haml (3.1.7)
+    highline (1.6.15)
+    hike (1.2.1)
+    hirb (0.7.0)
+    i18n (0.6.1)
+    journey (1.0.4)
+    jquery-rails (2.1.3)
+      railties (>= 3.1.0, < 5.0)
+      thor (~> 0.14)
+    json (1.7.5)
+    json_pure (1.7.5)
+    kgio (2.7.4)
+    launchy (2.1.2)
+      addressable (~> 2.3)
+    letter_opener (1.0.0)
+      launchy (>= 2.0.4)
+    libv8 (3.11.8.3)
+    libwebsocket (0.1.5)
+      addressable
+    listen (0.5.3)
+    lumberjack (1.0.2)
+    mail (2.4.4)
+      i18n (>= 0.4.0)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    metaclass (0.0.1)
+    method_source (0.8.1)
+    mime-types (1.19)
+    mocha (0.12.7)
+      metaclass (~> 0.0.1)
+    multi_json (1.3.7)
+    net-scp (1.0.4)
+      net-ssh (>= 1.99.1)
+    net-sftp (2.0.5)
+      net-ssh (>= 2.0.9)
+    net-ssh (2.6.1)
+    net-ssh-gateway (1.1.0)
+      net-ssh (>= 1.99.1)
+    newrelic_rpm (3.5.0.1)
+    nokogiri (1.5.5)
+    orm_adapter (0.0.7)
+    polyglot (0.3.3)
+    powder (0.1.8)
+      thor (>= 0.11.5)
+    pry (0.9.10)
+      coderay (~> 1.0.5)
+      method_source (~> 0.8)
+      slop (~> 3.3.1)
+    rack (1.4.1)
+    rack-cache (1.2)
+      rack (>= 0.4)
+    rack-protection (1.2.0)
+      rack
+    rack-ssl (1.3.2)
+      rack
+    rack-test (0.6.2)
+      rack (>= 1.0)
+    rails (3.2.8)
+      actionmailer (= 3.2.8)
+      actionpack (= 3.2.8)
+      activerecord (= 3.2.8)
+      activeresource (= 3.2.8)
+      activesupport (= 3.2.8)
+      bundler (~> 1.0)
+      railties (= 3.2.8)
+    railties (3.2.8)
+      actionpack (= 3.2.8)
+      activesupport (= 3.2.8)
+      rack-ssl (~> 1.3.2)
+      rake (>= 0.8.7)
+      rdoc (~> 3.4)
+      thor (>= 0.14.6, < 2.0)
+    raindrops (0.10.0)
+    rake (0.9.2.2)
+    rb-appscript (0.6.1)
+    rdoc (3.12)
+      json (~> 1.4)
+    redis (3.0.2)
+    redis-namespace (1.2.1)
+      redis (~> 3.0.0)
+    ref (1.0.2)
+    resque (1.23.0)
+      multi_json (~> 1.0)
+      redis-namespace (~> 1.0)
+      sinatra (>= 0.9.2)
+      vegas (~> 0.1.2)
+    rest-client (1.6.1)
+      mime-types (>= 1.16)
+    rspec (2.11.0)
+      rspec-core (~> 2.11.0)
+      rspec-expectations (~> 2.11.0)
+      rspec-mocks (~> 2.11.0)
+    rspec-core (2.11.1)
+    rspec-expectations (2.11.3)
+      diff-lcs (~> 1.1.3)
+    rspec-mocks (2.11.3)
+    rspec-rails (2.11.4)
+      actionpack (>= 3.0)
+      activesupport (>= 3.0)
+      railties (>= 3.0)
+      rspec (~> 2.11.0)
+    rubyzip (0.9.9)
+    sass (3.2.2)
+    sass-rails (3.2.5)
+      railties (~> 3.2.0)
+      sass (>= 3.1.10)
+      tilt (~> 1.3)
+    selenium-webdriver (2.26.0)
+      childprocess (>= 0.2.5)
+      libwebsocket (~> 0.1.3)
+      multi_json (~> 1.0)
+      rubyzip
+    showoff-io (0.3.1)
+      highline (>= 1.6.1)
+      json_pure
+      net-ssh (>= 2.1.0)
+      rest-client (= 1.6.1)
+    sinatra (1.3.3)
+      rack (~> 1.3, >= 1.3.6)
+      rack-protection (~> 1.2)
+      tilt (~> 1.3, >= 1.3.3)
+    slop (3.3.3)
+    sprockets (2.1.3)
+      hike (~> 1.2)
+      rack (~> 1.0)
+      tilt (~> 1.1, != 1.3.0)
+    sqlite3 (1.3.6)
+    therubyracer (0.11.0beta5)
+      ref
+    thin (1.5.0)
+      daemons (>= 1.0.9)
+      eventmachine (>= 0.12.6)
+      rack (>= 1.0.0)
+    thor (0.16.0)
+    tilt (1.3.3)
+    treetop (1.4.12)
+      polyglot
+      polyglot (>= 0.3.1)
+    tzinfo (0.3.35)
+    uglifier (1.3.0)
+      execjs (>= 0.3.0)
+      multi_json (~> 1.0, >= 1.0.2)
+    ultimate-log-silencer (0.2.1)
+      rails (~> 3.1)
+    unicorn (4.4.0)
+      kgio (~> 2.6)
+      rack
+      raindrops (~> 0.7)
+    vegas (0.1.11)
+      rack (>= 1.0.0)
+    warden (1.2.1)
+      rack (>= 1.0)
+    wirble (0.1.3)
+    xpath (0.1.4)
+      nokogiri (~> 1.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  annotate!
+  capistrano
+  capistrano-ext
+  capistrano-sync!
+  capybara
+  coffee-rails (~> 3.2.1)
+  database_cleaner
+  dev_must_have!
+  devise (= 1.5.3)
+  devise-russian
+  factory_girl_rails
+  fakeweb
+  growl_notify
+  guard-annotate
+  guard-resque
+  haml
+  hirb
+  jquery-rails
+  launchy
+  letter_opener
+  libv8 (~> 3.11.8)
+  mocha
+  newrelic_rpm
+  rails (= 3.2.8)
+  rspec-rails
+  sass-rails (~> 3.2.3)
+  showoff-io
+  sqlite3
+  therubyracer (= 0.11.0beta5)
+  thin
+  uglifier (>= 1.0.3)
+  ultimate-log-silencer
+  unicorn
