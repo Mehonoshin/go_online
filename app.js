@@ -47,6 +47,7 @@ app.get('/game', function(req, res) {
   match.joinMatch(req.query.userId);
 
   res.render('goban.ejs', {
+    match: match,
     gameId: req.query.gameId,
     gobanSize: match.gobanSize,
     userId: req.query.userId,

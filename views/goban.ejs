@@ -21,7 +21,7 @@
   </head>
 
   <body>
-    <div id="goban" data-user-id="<%= userId %>" data-game-id="<%= gameId %>" data-color="<%= color %>" data-goban-size="<%= gobanSize %>">
+    <div id="goban" data-field="<%= JSON.stringify(match.field) %>" data-turn="<%= match.turn %>" data-user-id="<%= userId %>" data-game-id="<%= gameId %>" data-color="<%= color %>" data-goban-size="<%= gobanSize %>">
       <div id="flash"></div>
       <canvas id="canvas"></canvas>
     </div>

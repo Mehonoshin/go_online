@@ -6,6 +6,7 @@ function Match(id, initUserId, gobanSize) {
   this.secondUserId = null;
   this.gobanSize = gobanSize;
   this.viewers = [];
+  this.turn = "white";
 
   this.field = [];
   for(var j = 0; j < gobanSize; j++) {
@@ -48,6 +49,7 @@ function Match(id, initUserId, gobanSize) {
     console.log(this.field);
     if (this.legalMove(data)) {
       this.takePosition(data);
+      this.swapPlayers();
       return true;
     } else {
       return false;
@@ -66,6 +68,17 @@ function Match(id, initUserId, gobanSize) {
     return true;
   }
 
+  this.swapPlayers = function(data) {
+    this.turn = (this.turn == "white") ? "black" : "white";
+  }
+
+  this.playerId = function(color) {
+    if (color == "white") {
+      return this.initUserId;
+    } else {
+      this.secondUserId;
+    }
+  }
 }
 
 Match.prototype = new engine.game();

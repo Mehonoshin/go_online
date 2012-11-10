@@ -5,19 +5,10 @@ function Game(canvas, goban, size) {
   this.userId = goban.data("userId");
   this.gameId = goban.data("gameId");
   this.started = false;
-  this.activePlayer = "white";
-  this.field = [];
+  this.activePlayer = goban.data('turn');
+  this.field = goban.data('field');
   this.size = size;
-  this.waitingForOpponentMove = (goban.data('color') == "black") ? true : false;
-
-  for(var j = 0; j < size; j++) {
-    this.field[j] = [];
-  }
-  for(var i = 0; i < size; i++) {
-    for(var j = 0; j < size; j++) {
-      this.field[i][j] = undefined;
-    }
-  }
+  this.waitingForOpponentMove = (goban.data('color') != this.activePlayer) ? true : false;
 
   this.swapPlayer = function() {
     this.activePlayer = (this.activePlayer == "white") ? "black" : "white";

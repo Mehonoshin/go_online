@@ -5,6 +5,8 @@ function Controller(canvas, goban, size) {
   this.goban = goban;
   this.canvas = canvas;
 
+  this.graphics.redrawStones();
+
   // Создаем socket.io коннектор, для связи с сервером
   this.socket = io.connect('http://localhost:8889');
 
