@@ -7,6 +7,16 @@ function Match(id, initUserId, gobanSize) {
   this.gobanSize = gobanSize;
   this.viewers = [];
 
+  this.field = [];
+  for(var j = 0; j < gobanSize; j++) {
+    this.field[j] = [];
+  }
+  for(var i = 0; i < gobanSize; i++) {
+    for(var j = 0; j < gobanSize; j++) {
+      this.field[i][j] = undefined;
+    }
+  }
+
   this.id = function() {
     return this.matchId;
   }
@@ -32,6 +42,20 @@ function Match(id, initUserId, gobanSize) {
     if ((this.initUserId != playerId) && (this.secondUserId != playerId) && (this.initUserId != null) && (this.secondUserId != null)) {
       this.viewers.push(playerId);
     }
+  }
+
+  this.gameStep = function(data) {
+    console.log(this.field);
+    if (this.legalMove(data)) {
+      this.takePosition(data);
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  this.takePosition = function(data) {
+    this.field[data['positions'][0]][data['positions'][1]] = data['turn'];
   }
 
   this.legalMove = function(data) {

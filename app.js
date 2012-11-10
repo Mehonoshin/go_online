@@ -63,8 +63,7 @@ io.sockets.on('connection', function (socket) {
   socket.on('game_step', function (data) {
     console.log("[debug] Game step: " + data);
     var match = gameServer.getMatch(data['gameId']);
-    if (match.legalMove(data)) {
-      // match.gameStep(data)
+    if (match.gameStep(data)) {
       socket.broadcast.emit('game_step', {
         turn: data['turn'],
         positions: data['positions'],
