@@ -23,7 +23,7 @@ function Match(id, initUserId, gobanSize) {
   }
 
   this.name = function() {
-    return "[x" + this.gobanSize + "] " + this.initUserId + " VS " + this.secondUserId;
+    return "[x" + this.gobanSize + "] " + this.initUserId + " VS " + this.secondPlayerName();
   }
 
   this.firstPlayerId = function() {
@@ -32,6 +32,10 @@ function Match(id, initUserId, gobanSize) {
 
   this.secondPlayerId = function() {
     return this.secondUserId;
+  }
+
+  this.secondPlayerName = function() {
+    return (this.secondUserId != null) ? this.secondUserId : "[pending]";
   }
 
   this.joinMatch = function(playerId) {
@@ -79,6 +83,7 @@ function Match(id, initUserId, gobanSize) {
       this.secondUserId;
     }
   }
+
 }
 
 Match.prototype = new engine.game();
