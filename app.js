@@ -57,6 +57,13 @@ app.get('/game', function(req, res) {
 
 app.listen(8888);
 
+var	redis = require('redis'),	
+    client = redis.createClient();
+
+client.on("error", function (err) {
+   console.log("Error: " + err);
+});
+
 // Transport
 var io = require('socket.io').listen(8889);
 io.sockets.on('connection', function (socket) {
@@ -73,5 +80,6 @@ io.sockets.on('connection', function (socket) {
       });
     }
   });
-
 });
+
+

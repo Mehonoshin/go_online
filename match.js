@@ -1,14 +1,20 @@
 var engine = require('./public/goGame');
+var	redis = require('redis'),	
+    client = redis.createClient();
 
-function Match(id, initUserId, gobanSize) {
+client.on("error", function (err) {
+   console.log("Error: " + err);
+});
+
+function Match(id, initUserId, gobanSize, restoreId) {
   this.matchId = id;
   this.initUserId = initUserId;
   this.secondUserId = null;
   this.gobanSize = gobanSize;
   this.viewers = [];
   this.turn = "white";
-
   this.field = [];
+
   for(var j = 0; j < gobanSize; j++) {
     this.field[j] = [];
   }
@@ -17,6 +23,28 @@ function Match(id, initUserId, gobanSize) {
       this.field[i][j] = undefined;
     }
   }
+
+  this.save = function() {
+    client.set("go_online:matches:" + this.matchId + ":matchId", this.matchId);
+    client.set("go_online:matches:" + this.matchId + ":initUserId", this.initUserId);
+    client.set("go_online:matches:" + this.matchId + ":secondUserId", this.secondUserId);
+    client.set("go_online:matches:" + this.matchId + ":turn", this.turn);
+    client.set("go_online:matches:" + this.matchId + ":gobanSize", this.gobanSize);
+    //client.mset("go_online:matches:" + this.matchId + ":field", this.field);
+    //client.set("go_online:matches:" + this.matchId + ":viewers", this.viewers);
+  }
+
+  this.restore = function(restoreId) {
+    console.log("Restoring " + restoreId);
+  }
+
+  if (restoreId == null) {
+    this.save();
+  } else {
+    this.restore(restoreId);
+  }
+
+  // Методы экземпляра
 
   this.id = function() {
     return this.matchId;
@@ -54,6 +82,7 @@ function Match(id, initUserId, gobanSize) {
     if (this.legalMove(data)) {
       this.takePosition(data);
       this.swapPlayers();
+      this.save();
       return true;
     } else {
       return false;
