@@ -24,24 +24,34 @@ function Match(id, initUserId, gobanSize, restoreId) {
     }
   }
 
+  this.setDbField = function(name, value) {
+    client.set("go_online:matches:" + this.matchId + ":" + name, value);
+  }
+
+  this.getDbField = function(name, callback) {
+    var value = null;
+    client.get("go_online:matches:" + this.matchId + ":" + name, function(error, result) {
+      callback(name, result);
+    });
+    return value;
+  }
+
   this.save = function() {
-    client.set("go_online:matches:" + this.matchId + ":matchId", this.matchId);
-    client.set("go_online:matches:" + this.matchId + ":initUserId", this.initUserId);
-    client.set("go_online:matches:" + this.matchId + ":secondUserId", this.secondUserId);
-    client.set("go_online:matches:" + this.matchId + ":turn", this.turn);
-    client.set("go_online:matches:" + this.matchId + ":gobanSize", this.gobanSize);
-    //client.mset("go_online:matches:" + this.matchId + ":field", this.field);
-    //client.set("go_online:matches:" + this.matchId + ":viewers", this.viewers);
+    for (attr in this) {
+      if (typeof this[attr] != "function") {
+        this.setDbField(attr, this[attr]);
+      }
+    }
   }
 
   this.restore = function(restoreId) {
-    console.log("Restoring " + restoreId);
-  }
-
-  if (restoreId == null) {
-    this.save();
-  } else {
-    this.restore(restoreId);
+    this.matchId = restoreId;
+    var that = this;
+    for (attr in this) {
+      if (typeof this[attr] != 'function') {
+        this.getDbField(attr, function(attr_name, result) { that[attr_name] = result; });
+      }
+    }
   }
 
   // Методы экземпляра
@@ -113,6 +123,12 @@ function Match(id, initUserId, gobanSize, restoreId) {
     }
   }
 
+  // Constructor
+  if (restoreId == null) {
+    this.save();
+  } else {
+    this.restore(restoreId);
+  }
 }
 
 Match.prototype = new engine.game();
