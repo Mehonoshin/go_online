@@ -38,7 +38,7 @@ function Match(id, initUserId, gobanSize, restoreId) {
     if (this.legalMove(data)) {
       this.takePosition(data);
       this.swapPlayers();
-      this.save();
+      this.data.save();
       return true;
     } else {
       return false;
