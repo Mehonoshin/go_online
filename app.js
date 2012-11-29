@@ -49,10 +49,11 @@ app.get('/game', function(req, res) {
   res.render('goban.ejs', {
     match: match,
     gameId: req.query.gameId,
-    gobanSize: match.gobanSize,
+    gobanSize: match.data.gobanSize,
     userId: req.query.userId,
     color: color
   });
+  console.log("gobanSize=" + match.data.gobanSize);
 });
 
 app.listen(8888);
