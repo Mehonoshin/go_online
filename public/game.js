@@ -9,6 +9,7 @@ function Game(canvas, goban, size) {
   this.field = goban.data('field');
   this.size = size;
   this.waitingForOpponentMove = (goban.data('color') != this.activePlayer) ? true : false;
+  this.freezeGoban = goban.data('freezeGoban')
 
   this.swapPlayer = function() {
     this.activePlayer = (this.activePlayer == "white") ? "black" : "white";
@@ -18,6 +19,7 @@ function Game(canvas, goban, size) {
   this.legalMove = function(position) {
     console.log(this.field[position[0]][position[1]]);
     console.log("x=" + position[0] + " y=" + position[1]);
+    if (this.freezeGoban) { return false; }
     if (this.waitingForOpponentMove || (this.field[position[0]][position[1]] != undefined)) {
       return false;
     } else {

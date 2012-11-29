@@ -51,7 +51,8 @@ app.get('/game', function(req, res) {
     gameId: req.query.gameId,
     gobanSize: match.data.gobanSize,
     userId: req.query.userId,
-    color: color
+    color: color,
+    freeze: (req.query.userId != match.firstPlayerId()) && (req.query.userId != match.secondPlayerId())
   });
   console.log("gobanSize=" + match.data.gobanSize);
 });
