@@ -1,5 +1,4 @@
 var Match = require('./match').Match;
-var GoGame = require('../public/goGame');
 var	redis = require('redis'),	
     client = redis.createClient();
 

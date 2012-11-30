@@ -1,4 +1,4 @@
-var engine = require('../public/goGame');
+var engine = require('../public/shared/goGame');
 var MatchData = require('./matchData').MatchData;
 
 function Match(id, initUserId, gobanSize, restoreId) {
