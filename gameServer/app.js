@@ -7,8 +7,8 @@ var express = require('express');
 
 var app = express();
 var Cookies = require('cookies');
-app.use(express.static(__dirname + '/public'));
-app.set('views', __dirname + '/views');
+app.use(express.static(__dirname + '/../public'));
+app.set('views', __dirname + '/../views');
 
 app.get('/', function(req, res) {
   var cookies = new Cookies(req, res);
